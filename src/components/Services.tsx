@@ -1,11 +1,55 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from "framer-motion";
 import AnimateIn from "./AnimateIn";
 import {
   Globe, Search, Megaphone, Smartphone, Zap, Rocket,
 } from "lucide-react";
+
+function makeFaces(h: number): string[] {
+  return [
+    `translateZ(${h}px)`,
+    `rotateY(180deg) translateZ(${h}px)`,
+    `rotateY(90deg) translateZ(${h}px)`,
+    `rotateY(-90deg) translateZ(${h}px)`,
+    `rotateX(90deg) translateZ(${h}px)`,
+    `rotateX(-90deg) translateZ(${h}px)`,
+  ];
+}
+
+const FACE_COLORS_A = ["#FFD100", "#0A1024", "#0066FF", "#0A1024", "#FFD100", "#0066FF"];
+const FACE_COLORS_B = ["#0066FF", "#FFD100", "#0A1024", "#FFD100", "#0066FF", "#0A1024"];
+
+function ScrollCube({ size, faceColors, rotY, rotX, y, top, right, bottom, left, marginTop }: {
+  size: number;
+  faceColors: string[];
+  rotY: MotionValue<number>;
+  rotX: MotionValue<number>;
+  y: MotionValue<number>;
+  top?: string | number;
+  right?: string | number;
+  bottom?: string | number;
+  left?: string | number;
+  marginTop?: string | number;
+}) {
+  const h = size / 2;
+  const faces = makeFaces(h);
+  return (
+    <motion.div
+      style={{ position: "absolute", top, right, bottom, left, marginTop, y, perspective: "700px" }}
+      className="pointer-events-none"
+    >
+      <motion.div
+        style={{ width: size, height: size, rotateY: rotY, rotateX: rotX, transformStyle: "preserve-3d", position: "relative" }}
+      >
+        {faces.map((transform, i) => (
+          <div key={i} style={{ position: "absolute", inset: 0, background: faceColors[i], transform, border: "1px solid rgba(255,255,255,0.08)", opacity: 0.9 }} />
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+}
 
 const services = [
   { number: "01", icon: Globe, title: "Website & Leadgeneratie", description: "Professionele websites die bezoekers omzetten in klanten. Geoptimaliseerd voor conversie en mobiel gebruik.", iconBg: "bg-accent" },
@@ -40,8 +84,44 @@ function SectionHeader() {
 }
 
 export default function Services() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const smooth = useSpring(scrollYProgress, { stiffness: 40, damping: 16 });
+
+  const bigRotY  = useTransform(smooth, [0, 1], [0, 720]);
+  const bigRotX  = useTransform(smooth, [0, 1], [20, 400]);
+  const bigY     = useTransform(smooth, [0, 1], [-100, 100]);
+
+  const smlRotY  = useTransform(smooth, [0, 1], [0, -540]);
+  const smlRotX  = useTransform(smooth, [0, 1], [0, 360]);
+  const smlY     = useTransform(smooth, [0, 1], [80, -80]);
+
   return (
-    <section id="diensten" className="relative bg-white line-grid py-24 sm:py-32">
+    <section ref={ref} id="diensten" className="relative bg-white line-grid py-24 sm:py-32 overflow-hidden">
+
+      {/* Large cube — right side, drifts vertically on scroll */}
+      <ScrollCube
+        size={280}
+        faceColors={FACE_COLORS_A}
+        rotY={bigRotY}
+        rotX={bigRotX}
+        y={bigY}
+        top="50%"
+        right="-80px"
+        marginTop="-140px"
+      />
+
+      {/* Small cube — left side, counter-drifts */}
+      <ScrollCube
+        size={140}
+        faceColors={FACE_COLORS_B}
+        rotY={smlRotY}
+        rotX={smlRotX}
+        y={smlY}
+        bottom="10%"
+        left="-30px"
+      />
+
       <div className="mx-auto max-w-[1240px] px-6 sm:px-8">
         <SectionHeader />
 

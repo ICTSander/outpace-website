@@ -1,10 +1,31 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from "framer-motion";
 import AnimateIn from "./AnimateIn";
 import Link from "next/link";
 import { Check } from "lucide-react";
+
+function makeFaceTransforms(h: number): string[] {
+  return [
+    `translateZ(${h}px)`, `rotateY(180deg) translateZ(${h}px)`,
+    `rotateY(90deg) translateZ(${h}px)`, `rotateY(-90deg) translateZ(${h}px)`,
+    `rotateX(90deg) translateZ(${h}px)`, `rotateX(-90deg) translateZ(${h}px)`,
+  ];
+}
+
+function PricingCube({ size, rotY, rotX }: { size: number; rotY: MotionValue<number>; rotX: MotionValue<number> }) {
+  const h = size / 2;
+  const faces = makeFaceTransforms(h);
+  const colors = ["#FFD100", "#131B33", "#FFD100", "#131B33", "#0066FF", "#0066FF"];
+  return (
+    <motion.div style={{ width: size, height: size, rotateY: rotY, rotateX: rotX, transformStyle: "preserve-3d", position: "relative" }}>
+      {faces.map((transform, i) => (
+        <div key={i} style={{ position: "absolute", inset: 0, background: colors[i], transform, border: "1px solid rgba(255,255,255,0.12)", opacity: 0.7 }} />
+      ))}
+    </motion.div>
+  );
+}
 
 const plans = [
   {
@@ -26,12 +47,37 @@ const plans = [
 export default function Pricing() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const smooth = useSpring(scrollYProgress, { stiffness: 40, damping: 16 });
+  const bgY = useTransform(smooth, [0, 1], [-20, 20]);
+
+  const rotY1 = useTransform(smooth, [0, 1], [0, -720]);
+  const rotX1 = useTransform(smooth, [0, 1], [30, 390]);
+  const y1    = useTransform(smooth, [0, 1], [-60, 60]);
+
+  const rotY2 = useTransform(smooth, [0, 1], [0, 600]);
+  const rotX2 = useTransform(smooth, [0, 1], [0, -360]);
+  const y2    = useTransform(smooth, [0, 1], [80, -80]);
 
   return (
     <section ref={ref} id="prijzen" className="relative bg-navy overflow-hidden py-24 sm:py-32">
       <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid-dark" />
       <div className="absolute top-0 left-0 right-0 h-[4px] bg-yellow relative" />
+
+      {/* 3D cube — top right, counter-rotates on scroll */}
+      <motion.div
+        style={{ y: y1, position: "absolute", top: "10%", right: "-60px", perspective: "700px" }}
+        className="pointer-events-none"
+      >
+        <PricingCube size={240} rotY={rotY1} rotX={rotX1} />
+      </motion.div>
+
+      {/* 3D cube — bottom left, rotates opposite direction */}
+      <motion.div
+        style={{ y: y2, position: "absolute", bottom: "8%", left: "-50px", perspective: "700px" }}
+        className="pointer-events-none"
+      >
+        <PricingCube size={160} rotY={rotY2} rotX={rotX2} />
+      </motion.div>
 
       <div className="relative mx-auto max-w-[1240px] px-6 sm:px-8">
         <AnimateIn y={20} duration={0.45}>

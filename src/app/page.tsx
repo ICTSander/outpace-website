@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import FloatingGeometry from "@/components/FloatingGeometry";
 import Marquee from "@/components/Marquee";
 import SocialProof from "@/components/SocialProof";
 import Services from "@/components/Services";
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <SocialProof />
+        <FloatingGeometry />
         <Services />
         <ForWho />
         <Process />
