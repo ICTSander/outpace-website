@@ -2,20 +2,20 @@
 
 import { useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
-import { Mail, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, Clock, Send } from "lucide-react";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "E-mail",
-    value: "autogarageflows@outlook.com",
-    href: "mailto:autogarageflows@outlook.com",
+    value: "sander@outpace.cloud",
+    href: "mailto:sander@outpace.cloud",
   },
   {
-    icon: MapPin,
-    label: "Regio",
-    value: "Zuid-Limburg, Nederland",
-    href: null,
+    icon: Phone,
+    label: "Telefoon",
+    value: "+31 6 18233970",
+    href: "tel:+31618233970",
   },
   {
     icon: Clock,

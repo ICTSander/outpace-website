@@ -76,7 +76,8 @@ export default function RootLayout({
               name: "Outpace",
               description:
                 "Online groei voor lokale ondernemers: websites, Google Ads, SEO, social media en automatiseringen.",
-              email: "autogarageflows@outlook.com",
+              email: "sander@outpace.cloud",
+              telephone: "+31618233970",
               url: "https://outpace.nl",
               areaServed: {
                 "@type": "GeoCircle",

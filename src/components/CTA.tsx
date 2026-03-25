@@ -68,11 +68,11 @@ export default function CTA() {
                 <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
               </Link>
               <a
-                href="mailto:autogarageflows@outlook.com"
+                href="mailto:sander@outpace.cloud"
                 className="inline-flex items-center gap-2 text-[13px] font-bold text-navy/50 transition-colors hover:text-navy"
               >
                 <Mail className="h-4 w-4" />
-                autogarageflows@outlook.com
+                sander@outpace.cloud
               </a>
             </div>
           </div>

@@ -57,10 +57,10 @@ export default function Footer() {
             &copy; 2026 Outpace. Alle rechten voorbehouden.
           </p>
           <a
-            href="mailto:autogarageflows@outlook.com"
+            href="mailto:sander@outpace.cloud"
             className="text-[11px] font-bold text-white/35 transition-colors hover:text-white"
           >
-            autogarageflows@outlook.com
+            sander@outpace.cloud
           </a>
         </div>
       </div>
