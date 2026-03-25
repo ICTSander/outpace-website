@@ -10,6 +10,7 @@ interface AnimateInProps {
   x?: number;
   y?: number;
   scale?: number;
+  rotateX?: number;
   duration?: number;
 }
 
@@ -20,14 +21,16 @@ export default function AnimateIn({
   x = 0,
   y = 40,
   scale = 1,
-  duration = 0.7,
+  rotateX = 0,
+  duration = 0.6,
 }: AnimateInProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x, y, scale }}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, x, y, scale, rotateX }}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotateX: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration, delay, ease: [0.4, 0, 0.2, 1] }}
+      style={{ transformPerspective: rotateX !== 0 ? 900 : undefined }}
       className={className}
     >
       {children}
