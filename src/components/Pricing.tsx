@@ -66,7 +66,7 @@ export default function Pricing() {
       {/* 3D cube — top right, counter-rotates on scroll */}
       <motion.div
         style={{ y: y1, position: "absolute", top: "10%", right: "-60px", perspective: "700px" }}
-        className="pointer-events-none"
+        className="pointer-events-none hidden lg:block"
       >
         <PricingCube size={240} rotY={rotY1} rotX={rotX1} />
       </motion.div>
@@ -74,7 +74,7 @@ export default function Pricing() {
       {/* 3D cube — bottom left, rotates opposite direction */}
       <motion.div
         style={{ y: y2, position: "absolute", bottom: "8%", left: "-50px", perspective: "700px" }}
-        className="pointer-events-none"
+        className="pointer-events-none hidden lg:block"
       >
         <PricingCube size={160} rotY={rotY2} rotX={rotX2} />
       </motion.div>

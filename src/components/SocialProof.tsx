@@ -1,7 +1,3 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import AnimateIn from "./AnimateIn";
 import CountUp from "./CountUp";
 
@@ -13,20 +9,15 @@ const stats = [
 ];
 
 export default function SocialProof() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-
   return (
-    <section ref={ref} className="relative bg-navy overflow-hidden">
-      {/* Parallax background pattern */}
-      <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid-dark" />
+    <section className="relative bg-navy overflow-hidden">
+      <div className="absolute inset-0 line-grid-dark" />
 
       <div className="h-[4px] bg-yellow w-full relative" />
 
       <div className="relative mx-auto max-w-[1240px] px-6 sm:px-8 py-16 sm:py-20">
         <AnimateIn y={0} duration={0.4}>
-          <p className="mb-12 text-[11px] font-black uppercase tracking-[0.2em] text-white/30 text-center">
+          <p className="mb-12 text-[11px] font-black uppercase tracking-[0.2em] text-white/60 text-center">
             Vertrouwd door lokale ondernemers in Zuid-Limburg
           </p>
         </AnimateIn>
@@ -40,7 +31,7 @@ export default function SocialProof() {
                   <CountUp end={stat.end} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
                 </p>
                 <div className={`mt-3 h-[3px] w-8 ${stat.color}`} />
-                <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">
+                <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/60">
                   {stat.label}
                 </p>
               </div>
@@ -49,7 +40,7 @@ export default function SocialProof() {
         </div>
       </div>
 
-      <div className="h-[3px] bg-white/08 w-full relative" />
+      <div className="h-[3px] bg-white/[0.08] w-full relative" />
     </section>
   );
 }

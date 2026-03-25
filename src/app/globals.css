@@ -27,8 +27,8 @@
   --color-navy-light: var(--navy-light);
   --color-text-secondary: var(--text-secondary);
   --color-border: var(--border);
-  --font-heading: "Cabinet Grotesk", "Sora", var(--font-sora), system-ui, sans-serif;
-  --font-body: "General Sans", "DM Sans", var(--font-dm-sans), system-ui, sans-serif;
+  --font-heading: var(--font-sora), system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
 }
 
 body {

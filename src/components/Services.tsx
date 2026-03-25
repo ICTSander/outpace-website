@@ -38,7 +38,7 @@ function ScrollCube({ size, faceColors, rotY, rotX, y, top, right, bottom, left,
   return (
     <motion.div
       style={{ position: "absolute", top, right, bottom, left, marginTop, y, perspective: "700px" }}
-      className="pointer-events-none"
+      className="pointer-events-none hidden lg:block"
     >
       <motion.div
         style={{ width: size, height: size, rotateY: rotY, rotateX: rotX, transformStyle: "preserve-3d", position: "relative" }}

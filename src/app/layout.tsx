@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     "Zuid-Limburg",
   ],
   authors: [{ name: "Outpace" }],
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Outpace — Meer klanten voor jouw lokale bedrijf",
     description:
@@ -38,12 +39,14 @@ export const metadata: Metadata = {
     siteName: "Outpace",
     locale: "nl_NL",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Outpace — Meer klanten voor jouw lokale bedrijf" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Outpace — Meer klanten voor jouw lokale bedrijf",
     description:
       "Professionele websites, Google Ads, SEO en automatiseringen voor lokale ondernemers.",
+    images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -59,14 +62,6 @@ export default function RootLayout({
       className={`${sora.variable} ${dmSans.variable} h-full antialiased`}
     >
       <head>
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

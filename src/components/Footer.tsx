@@ -22,7 +22,7 @@ export default function Footer() {
               Outpace
             </Link>
             <div className="mt-2 h-[2px] w-8 bg-accent" />
-            <p className="mt-4 max-w-[240px] text-[13px] leading-[1.7] text-white/40 font-medium">
+            <p className="mt-4 max-w-[240px] text-[13px] leading-[1.7] text-white/60 font-medium">
               Online groei voor lokale ondernemers in Zuid-Limburg.
             </p>
           </div>
@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/08 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/[0.08] pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/25">
             &copy; 2026 Outpace. Alle rechten voorbehouden.
           </p>

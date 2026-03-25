@@ -28,19 +28,27 @@ const contactInfo = [
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setError(false);
     const form = e.currentTarget;
     const data = new FormData(form);
-    await fetch("https://formspree.io/f/xlgorzpl", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    });
-    setSubmitting(false);
-    setSubmitted(true);
+    try {
+      const res = await fetch("https://formspree.io/f/xlgorzpl", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error("Server error");
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -156,6 +164,12 @@ export default function ContactContent() {
                       placeholder="Vertel ons over je bedrijf en wat je zoekt..."
                     />
                   </div>
+
+                  {error && (
+                    <p className="text-[13px] font-medium text-red-600">
+                      Er is iets misgegaan. Probeer het opnieuw of stuur een e-mail naar sander@outpace.cloud.
+                    </p>
+                  )}
 
                   <button
                     type="submit"
