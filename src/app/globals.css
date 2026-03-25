@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --foreground: #0A1024;
+  --accent: #0066FF;
+  --accent-hover: #0052CC;
+  --surface: #F5F7FA;
+  --navy: #0A1024;
+  --navy-light: #131B33;
+  --text-secondary: #5A6478;
+  --border: #D8DDE8;
+  --grid-line: rgba(10, 16, 36, 0.07);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-surface: var(--surface);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border);
+  --font-heading: "Cabinet Grotesk", "Sora", var(--font-sora), system-ui, sans-serif;
+  --font-body: "General Sans", "DM Sans", var(--font-dm-sans), system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(0, 102, 255, 0.15);
+  color: #0A1024;
+}
+
+/* Bauhaus geometric grid */
+.line-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.line-grid-dark {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #0066FF 0%, #3399FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 32s linear infinite; }
+
+/* Line grow */
+@keyframes line-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.animate-line-grow {
+  animation: line-grow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Pulse badge */
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+.animate-pulse-badge { animation: pulse-badge 2s ease-in-out infinite; }
+
+/* Chart bar fill */
+@keyframes bar-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Mobile CTA slide */
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Legacy — kept for sub-pages */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(10, 16, 36, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dot-grid-light {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.glass-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.glass-card-dark {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+@keyframes blob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+@keyframes blob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(0.95); }
+  66% { transform: translate(25px, -40px) scale(1.05); }
+}
+@keyframes blob3 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  33% { transform: translate(20px, 40px) scale(0.95); }
+  66% { transform: translate(-30px, -20px) scale(1); }
+}
+.animate-blob1 { animation: blob1 20s ease-in-out infinite; }
+.animate-blob2 { animation: blob2 25s ease-in-out infinite; }
+.animate-blob3 { animation: blob3 22s ease-in-out infinite; }
+@keyframes glare {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+.animate-glare { animation: glare 6s ease-in-out infinite; }
