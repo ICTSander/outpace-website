@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import AnimateIn from "./AnimateIn";
+import useIsMobile from "@/hooks/useIsMobile";
 import { Wrench, Scissors, TreePine } from "lucide-react";
 
 const branches = [
@@ -30,44 +31,49 @@ const branches = [
 ];
 
 export default function ForWho() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [-10, 10]);
 
   return (
     <section ref={ref} className="relative bg-navy overflow-hidden">
-      <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid-dark" />
+      {isMobile ? (
+        <div className="absolute inset-0 line-grid-dark" />
+      ) : (
+        <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid-dark" />
+      )}
 
-      <div className="relative mx-auto max-w-[1240px] px-6 sm:px-8 py-24 sm:py-32">
-        <AnimateIn y={20} duration={0.45}>
-          <div className="mb-16 border-l-4 border-yellow pl-6">
+      <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8 py-16 sm:py-32">
+        <AnimateIn y={20} duration={0.4}>
+          <div className="mb-10 sm:mb-16 border-l-4 border-yellow pl-5 sm:pl-6">
             <span className="text-[11px] font-black uppercase tracking-[0.18em] text-yellow">Voor wie</span>
-            <h2 className="mt-2 text-[36px] font-black leading-[1.0] tracking-[-1.5px] text-white sm:text-[48px] font-[family-name:var(--font-heading)] uppercase">
+            <h2 className="mt-2 text-[28px] font-black leading-[1.0] tracking-[-1px] text-white sm:text-[48px] font-[family-name:var(--font-heading)] uppercase">
               Gebouwd voor
               <br />
               lokale ondernemers
             </h2>
-            <p className="mt-4 max-w-[480px] text-[15px] leading-[1.7] text-white/50 font-medium">
+            <p className="mt-3 sm:mt-4 max-w-[480px] text-[14px] sm:text-[15px] leading-[1.7] text-white/50 font-medium">
               Wij kennen de uitdagingen van lokale bedrijven en weten precies hoe we klanten naar jou toe brengen.
             </p>
           </div>
         </AnimateIn>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
           {branches.map((branch, i) => (
-            <AnimateIn key={branch.title} delay={i * 0.12} y={40} rotateX={16} duration={0.5}>
+            <AnimateIn key={branch.title} delay={i * 0.08} y={24} rotateX={10} duration={0.42}>
               <motion.div
-                whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] } }}
-                className={`${branch.bg} flex flex-col p-10 h-full border-2 border-white/10`}
+                whileHover={isMobile ? undefined : { y: -4, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } }}
+                className={`${branch.bg} flex flex-col p-8 sm:p-10 h-full border-2 border-white/10`}
               >
-                <div className={`flex h-12 w-12 items-center justify-center mb-6 ${branch.iconBg} ${branch.iconColor}`}>
+                <div className={`flex h-12 w-12 items-center justify-center mb-5 sm:mb-6 ${branch.iconBg} ${branch.iconColor}`}>
                   <branch.icon className="h-6 w-6" strokeWidth={1.8} />
                 </div>
-                <h3 className={`text-[20px] font-black leading-[1.15] tracking-tight ${branch.titleColor} uppercase font-[family-name:var(--font-heading)]`}>
+                <h3 className={`text-[18px] sm:text-[20px] font-black leading-[1.15] tracking-tight ${branch.titleColor} uppercase font-[family-name:var(--font-heading)]`}>
                   {branch.title}
                 </h3>
-                <div className={`mt-4 mb-5 h-[3px] w-8 ${branch.bar}`} />
-                <p className={`text-[14px] leading-[1.7] font-medium ${branch.bodyColor} flex-1`}>
+                <div className={`mt-3 sm:mt-4 mb-4 sm:mb-5 h-[3px] w-8 ${branch.bar}`} />
+                <p className={`text-[13px] sm:text-[14px] leading-[1.7] font-medium ${branch.bodyColor} flex-1`}>
                   {branch.description}
                 </p>
               </motion.div>

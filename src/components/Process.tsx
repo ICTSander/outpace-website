@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import AnimateIn from "./AnimateIn";
+import useIsMobile from "@/hooks/useIsMobile";
 import { MessageCircle, Monitor, Rocket } from "lucide-react";
 
 const steps = [
@@ -35,7 +36,7 @@ function ProgressBar() {
       <motion.div
         initial={{ scaleX: 0 }}
         animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 1.4, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 1, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
         className="absolute inset-0 origin-left bg-accent"
       />
     </div>
@@ -43,24 +44,29 @@ function ProgressBar() {
 }
 
 export default function Process() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [-10, 10]);
 
   return (
-    <section ref={ref} id="werkwijze" className="relative bg-surface overflow-hidden py-24 sm:py-32">
-      <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid" />
+    <section ref={ref} id="werkwijze" className="relative bg-surface overflow-hidden py-16 sm:py-32">
+      {isMobile ? (
+        <div className="absolute inset-0 line-grid" />
+      ) : (
+        <motion.div style={{ y: bgY }} className="absolute inset-[-60px] line-grid" />
+      )}
 
-      <div className="relative mx-auto max-w-[1240px] px-6 sm:px-8">
-        <AnimateIn y={20} duration={0.45}>
-          <div className="mb-20 border-l-4 border-accent pl-6">
+      <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8">
+        <AnimateIn y={14} duration={0.4}>
+          <div className="mb-12 sm:mb-20 border-l-4 border-accent pl-5 sm:pl-6">
             <span className="text-[11px] font-black uppercase tracking-[0.18em] text-accent">Werkwijze</span>
-            <h2 className="mt-2 text-[36px] font-black leading-[1.0] tracking-[-1.5px] text-navy sm:text-[48px] font-[family-name:var(--font-heading)] uppercase">
+            <h2 className="mt-2 text-[28px] font-black leading-[1.0] tracking-[-1px] text-navy sm:text-[48px] font-[family-name:var(--font-heading)] uppercase">
               In 3 stappen
               <br />
               online groeien
             </h2>
-            <p className="mt-4 max-w-[440px] text-[15px] leading-[1.7] text-navy/55 font-medium">
+            <p className="mt-3 sm:mt-4 max-w-[440px] text-[14px] sm:text-[15px] leading-[1.7] text-navy/55 font-medium">
               Geen lange trajecten of ingewikkelde processen. Wij maken het simpel.
             </p>
           </div>
@@ -68,16 +74,15 @@ export default function Process() {
 
         <div className="relative">
           <ProgressBar />
-          <div className="grid gap-12 lg:grid-cols-3 lg:gap-8">
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
             {steps.map((step, i) => (
-              <AnimateIn key={step.number} delay={i * 0.18} y={32} rotateX={14} duration={0.48}>
+              <AnimateIn key={step.number} delay={i * 0.12} y={20} rotateX={8} duration={0.4}>
                 <motion.div
-                  whileHover={{ y: -4, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } }}
+                  whileHover={isMobile ? undefined : { y: -3, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } }}
                   className="relative"
                 >
-                  {/* Icon block */}
-                  <div className={`flex h-[52px] w-[52px] items-center justify-center ${step.color} ${step.textColor} mb-6 relative`}>
-                    <step.icon className="h-6 w-6" strokeWidth={1.8} />
+                  <div className={`flex h-[48px] w-[48px] sm:h-[52px] sm:w-[52px] items-center justify-center ${step.color} ${step.textColor} mb-5 sm:mb-6 relative`}>
+                    <step.icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.8} />
                     <span className="absolute -top-2.5 -right-2.5 bg-navy text-yellow text-[10px] font-black px-1.5 py-0.5 leading-none">
                       {step.number}
                     </span>
@@ -86,11 +91,11 @@ export default function Process() {
                   <span className="inline-block text-[11px] font-black uppercase tracking-[0.15em] text-navy/40 mb-3">
                     {step.time}
                   </span>
-                  <h3 className="text-[20px] font-black tracking-tight text-navy uppercase font-[family-name:var(--font-heading)]">
+                  <h3 className="text-[18px] sm:text-[20px] font-black tracking-tight text-navy uppercase font-[family-name:var(--font-heading)]">
                     {step.title}
                   </h3>
                   <div className="mt-3 h-[2px] w-8 bg-navy/15" />
-                  <p className="mt-4 text-[14px] leading-[1.7] text-navy/55 font-medium">
+                  <p className="mt-3 sm:mt-4 text-[13px] sm:text-[14px] leading-[1.7] text-navy/55 font-medium">
                     {step.description}
                   </p>
                 </motion.div>

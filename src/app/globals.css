@@ -148,3 +148,15 @@ html {
   100% { transform: translateX(200%) rotate(25deg); }
 }
 .animate-glare { animation: glare 6s ease-in-out infinite; }
+
+/* ── Mobile: kill all scroll / entrance animations ── */
+@media (max-width: 767px) {
+  .animate-line-grow,
+  .animate-blob1,
+  .animate-blob2,
+  .animate-blob3,
+  .animate-glare,
+  .animate-pulse-badge {
+    animation: none !important;
+  }
+}

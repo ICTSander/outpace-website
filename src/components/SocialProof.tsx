@@ -15,23 +15,23 @@ export default function SocialProof() {
 
       <div className="h-[4px] bg-yellow w-full relative" />
 
-      <div className="relative mx-auto max-w-[1240px] px-6 sm:px-8 py-16 sm:py-20">
-        <AnimateIn y={0} duration={0.4}>
-          <p className="mb-12 text-[11px] font-black uppercase tracking-[0.2em] text-white/60 text-center">
+      <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8 py-12 sm:py-20">
+        <AnimateIn y={0} duration={0.35}>
+          <p className="mb-8 sm:mb-12 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-white/60 text-center">
             Vertrouwd door lokale ondernemers in Zuid-Limburg
           </p>
         </AnimateIn>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 border-t-2 border-l-2 border-white/10">
           {stats.map((stat, i) => (
-            <AnimateIn key={stat.label} delay={i * 0.1} y={28} rotateX={14} duration={0.45}>
-              <div className="border-b-2 border-r-2 border-white/10 flex flex-col items-center justify-center py-10 px-6 text-center">
-                <p className="text-[58px] font-black tracking-[-3px] text-white leading-none font-[family-name:var(--font-heading)] sm:text-[64px]">
+            <AnimateIn key={stat.label} delay={i * 0.07} y={18} rotateX={8} duration={0.38}>
+              <div className="border-b-2 border-r-2 border-white/10 flex flex-col items-center justify-center py-6 sm:py-10 px-3 sm:px-6 text-center">
+                <p className="text-[36px] sm:text-[58px] lg:text-[64px] font-black tracking-[-2px] sm:tracking-[-3px] text-white leading-none font-[family-name:var(--font-heading)]">
                   {stat.prefix && <span>{stat.prefix}</span>}
                   <CountUp end={stat.end} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
                 </p>
-                <div className={`mt-3 h-[3px] w-8 ${stat.color}`} />
-                <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/60">
+                <div className={`mt-2 sm:mt-3 h-[3px] w-6 sm:w-8 ${stat.color}`} />
+                <p className="mt-2 sm:mt-3 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.12em] text-white/60">
                   {stat.label}
                 </p>
               </div>

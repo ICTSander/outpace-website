@@ -100,7 +100,7 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="border-b border-navy/10 py-3.5 text-[13px] font-bold uppercase tracking-[0.08em] text-navy/60"
+                    className="border-b border-navy/10 py-4 text-[13px] font-bold uppercase tracking-[0.08em] text-navy/60 min-h-[44px] flex items-center"
                   >
                     {link.label}
                   </a>
@@ -109,7 +109,7 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="border-b border-navy/10 py-3.5 text-[13px] font-bold uppercase tracking-[0.08em] text-navy/60"
+                    className="border-b border-navy/10 py-4 text-[13px] font-bold uppercase tracking-[0.08em] text-navy/60 min-h-[44px] flex items-center"
                   >
                     {link.label}
                   </Link>
@@ -118,7 +118,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-4 flex items-center justify-center border-2 border-navy bg-navy py-3.5 text-[12px] font-black uppercase tracking-[0.1em] text-white"
+                className="mt-4 flex items-center justify-center border-2 border-navy bg-navy py-3.5 text-[12px] font-black uppercase tracking-[0.1em] text-white min-h-[44px]"
               >
                 Gratis gesprek
               </Link>
